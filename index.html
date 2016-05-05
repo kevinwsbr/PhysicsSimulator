@@ -1,19 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<meta charset="utf-8"/>
-	<title>Bazinga</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src='http://mrdoob.github.io/three.js/build/three.min.js'></script>
-	<script src='http://dat-gui.googlecode.com/git/build/dat.gui.min.js'/></script>
-	<style type="text/css">
-		body {
-			margin: 0;
-			overflow: hidden;
-		}
-	</style>
+  <meta charset="UTF-8">
+  <title>Physics Lab</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/jquery.min.js"></script>
 </head>
 <body>
-	<script src='js/main.js'></script>
+  <canvas id="lab" width="500" height="500">
+
+  </canvas>
+  <script type="text/javascript">
+    $(function () {
+        var x =  0;
+        var y = 15;
+        var speed = 5;
+        var canvas = $("#lab");
+        var context = canvas.get(0).getContext("2d");
+        var canvasWidth = canvas.width();
+        var canvasHeight = canvas.height();
+     
+        $(window).resize(resizeCanvas);
+     
+        function resizeCanvas() {
+            canvas.attr("width", $(window).get(0).innerWidth);
+            canvas.attr("height", $(window).get(0).innerHeight);
+     
+            canvasWidth = canvas.width();
+            canvasHeight = canvas.height();
+        };
+        resizeCanvas();
+     
+        function loadContent() {
+            animate();
+        }
+        loadContent();
+     
+        /*function animate() {
+            update();
+            draw();
+            setTimeout(animate, 33);
+        }*/
+     
+        function update() {
+        }
+
+        function animate() {
+
+            reqAnimFrame = window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame;
+
+            reqAnimFrame(animate);
+
+            x += speed;
+
+            if(x <= 0 || x >= 475){
+                speed = -speed;
+            }
+
+            draw();
+        }
+
+
+        function draw() {
+            context.clearRect(0, 0, 500, 100);
+            context.fillStyle = "#ff00ff";
+            context.fillRect(x, y, 100, 5);
+        }
+
+        animate();
+    });
+  </script>
 </body>
 </html>
